@@ -1,0 +1,6 @@
+* text=auto eol=lf
+
+# Preserve lecture exports and archived source bytes for SHA-256 verification.
+lectures/** -text
+*.pdf binary
+*.zip binary

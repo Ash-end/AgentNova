@@ -1,0 +1,9 @@
+{
+  "renderer": "Tectonic 0.17.0+20260731",
+  "source": "lecture.tex",
+  "markdown_source": "lecture.md",
+  "output": "lecture01-agent-foundations.pdf",
+  "pages": 43,
+  "exit_code": 0,
+  "edition": "public-redacted"
+}

@@ -1,0 +1,95 @@
+(agent-study) E:\study\agent>python -X utf8 -m labs.l12_tool_failure_policy
+Deterministic model responses; real file tools; no model API called.
+Correction budget: 1 opportunity for the whole task; max_steps: 5.
+
+Case: invalid arguments, then correction
+  Step 1 tool result: {"status": "failed", "error_type": "invalid_arguments", "message": "relative_path is required"}
+  Decision: correct / ask_model_to_fix_arguments
+  Correction opportunities used: 1
+  Step 2 tool result: {"status": "success", "content": "你好，Agent！\n这是一次真实的文件读取。\n"}
+  Decision: continue / tool_succeeded
+  Correction opportunities used: 1
+Loop status: completed
+Model decisions: 3
+Final response: 你好，Agent！
+这是一次真实的文件读取。
+
+
+Case: required file missing
+  Step 1 tool result: {"status": "failed", "error_type": "file_not_found", "path": "E:\\study\\agent\\labs\\fixtures\\missing.txt"}
+  Decision: stop / required_file_missing
+  Correction opportunities used: 0
+Loop status: failed
+Model decisions: 1
+Stopped because: file_not_found / required_file_missing
+
+Case: path outside project
+  Step 1 tool result: {"status": "failed", "error_type": "path_outside_project", "path": "E:\\study\\outside.txt"}
+  Decision: stop / permission_boundary
+  Correction opportunities used: 0
+Loop status: failed
+Model decisions: 1
+Stopped because: path_outside_project / permission_boundary
+
+Case: unregistered tool
+  Step 1 tool result: {"status": "failed", "error_type": "unknown_tool", "tool_name": "delete_file"}
+  Decision: stop / tool_unavailable
+  Correction opportunities used: 0
+Loop status: failed
+Model decisions: 1
+Stopped because: unknown_tool / tool_unavailable
+
+Case: invalid arguments repeated
+  Step 1 tool result: {"status": "failed", "error_type": "invalid_arguments", "message": "relative_path is required"}
+  Decision: correct / ask_model_to_fix_arguments
+  Correction opportunities used: 1
+  Step 2 tool result: {"status": "failed", "error_type": "invalid_arguments", "message": "relative_path is required"}
+  Decision: stop / correction_limit_exceeded
+  Correction opportunities used: 1
+Loop status: failed
+Model decisions: 2
+Stopped because: invalid_arguments / correction_limit_exceeded
+
+Saved report: E:\study\agent\reports\l12_tool_failure_policy.json
+
+(agent-study) E:\study\agent>python -X utf8 -m unittest discover -s tests -v
+test_absolute_path_to_sibling_with_shared_prefix_is_rejected (test_file_tools.ReadTextFileTests.test_absolute_path_to_sibling_with_shared_prefix_is_rejected) ... ok
+test_existing_utf8_file_returns_exact_content (test_file_tools.ReadTextFileTests.test_existing_utf8_file_returns_exact_content) ... ok
+test_missing_file_outside_project_is_rejected_before_reading (test_file_tools.ReadTextFileTests.test_missing_file_outside_project_is_rejected_before_reading) ... ok
+test_missing_file_returns_structured_error (test_file_tools.ReadTextFileTests.test_missing_file_returns_structured_error) ... ok
+test_parent_traversal_to_existing_file_is_rejected (test_file_tools.ReadTextFileTests.test_parent_traversal_to_existing_file_is_rejected) ... ok
+test_final_response_stops_without_another_model_call (test_loop.AgentLoopTests.test_final_response_stops_without_another_model_call) ... ok
+test_invalid_model_response_ends_with_a_diagnostic (test_loop.AgentLoopTests.test_invalid_model_response_ends_with_a_diagnostic) ... ok
+test_model_can_correct_arguments_using_tool_observation (test_loop.AgentLoopTests.test_model_can_correct_arguments_using_tool_observation) ... ok
+test_step_limit_stops_endless_tool_requests (test_loop.AgentLoopTests.test_step_limit_stops_endless_tool_requests) ... ok
+test_unknown_tool_error_is_returned_to_model (test_loop.AgentLoopTests.test_unknown_tool_error_is_returned_to_model) ... ok
+test_all_tool_calls_in_one_response_are_returned_before_next_model_call (test_ollama_loop.OllamaLoopTests.test_all_tool_calls_in_one_response_are_returned_before_next_model_call) ... ok
+test_empty_text_without_tools_is_not_completed (test_ollama_loop.OllamaLoopTests.test_empty_text_without_tools_is_not_completed) ... ok
+test_final_text_stops_without_another_model_call (test_ollama_loop.OllamaLoopTests.test_final_text_stops_without_another_model_call) ... ok
+test_malformed_responses_stop_before_executing_any_tool (test_ollama_loop.OllamaLoopTests.test_malformed_responses_stop_before_executing_any_tool) ... ok
+test_network_failure_preserves_observations_and_does_not_retry (test_ollama_loop.OllamaLoopTests.test_network_failure_preserves_observations_and_does_not_retry) ... ok
+test_step_limit_can_stop_after_reading_but_before_final_answer (test_ollama_loop.OllamaLoopTests.test_step_limit_can_stop_after_reading_but_before_final_answer) ... ok
+test_tool_errors_are_returned_and_model_can_correct_its_request (test_ollama_loop.OllamaLoopTests.test_tool_errors_are_returned_and_model_can_correct_its_request) ... ok
+test_tool_request_takes_priority_over_text_and_result_reaches_next_request (test_ollama_loop.OllamaLoopTests.test_tool_request_takes_priority_over_text_and_result_reaches_next_request) ... ok
+test_unfinished_generation_does_not_execute_tools (test_ollama_loop.OllamaLoopTests.test_unfinished_generation_does_not_execute_tools) ... ok
+test_invalid_arguments_can_be_corrected_once_using_real_observation (test_tool_failure_policy.ToolFailurePolicyTests.test_invalid_arguments_can_be_corrected_once_using_real_observation) ... ok
+test_missing_file_stops_and_preserves_the_actual_tool_error (test_tool_failure_policy.ToolFailurePolicyTests.test_missing_file_stops_and_preserves_the_actual_tool_error) ... ok
+test_outside_path_and_unregistered_tool_stop_without_another_model_request (test_tool_failure_policy.ToolFailurePolicyTests.test_outside_path_and_unregistered_tool_stop_without_another_model_request) ... ok
+test_second_invalid_request_stops_before_third_model_request (test_tool_failure_policy.ToolFailurePolicyTests.test_second_invalid_request_stops_before_third_model_request) ... ok
+test_stop_skips_remaining_tools_in_the_same_batch (test_tool_failure_policy.ToolFailurePolicyTests.test_stop_skips_remaining_tools_in_the_same_batch) ... ok
+test_unrecognized_failures_do_not_trigger_blind_retry (test_tool_failure_policy.ToolFailurePolicyTests.test_unrecognized_failures_do_not_trigger_blind_retry) ... ok
+test_arguments_must_be_a_dictionary (test_tool_registry.ToolRegistryTests.test_arguments_must_be_a_dictionary) ... ok
+test_caller_cannot_supply_project_root (test_tool_registry.ToolRegistryTests.test_caller_cannot_supply_project_root) ... ok
+test_dispatch_preserves_file_path_boundary (test_tool_registry.ToolRegistryTests.test_dispatch_preserves_file_path_boundary) ... ok
+test_each_registry_uses_its_own_project_root (test_tool_registry.ToolRegistryTests.test_each_registry_uses_its_own_project_root) ... ok
+test_missing_required_argument_is_rejected (test_tool_registry.ToolRegistryTests.test_missing_required_argument_is_rejected) ... ok
+test_misspelled_argument_is_rejected (test_tool_registry.ToolRegistryTests.test_misspelled_argument_is_rejected) ... ok
+test_path_value_must_be_a_non_empty_string (test_tool_registry.ToolRegistryTests.test_path_value_must_be_a_non_empty_string) ... ok
+test_registered_name_reads_file (test_tool_registry.ToolRegistryTests.test_registered_name_reads_file) ... ok
+test_spaces_inside_valid_file_name_are_preserved (test_tool_registry.ToolRegistryTests.test_spaces_inside_valid_file_name_are_preserved) ... ok
+test_unknown_name_returns_structured_error (test_tool_registry.ToolRegistryTests.test_unknown_name_returns_structured_error) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 0.069s
+
+OK

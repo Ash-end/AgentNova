@@ -1,0 +1,444 @@
+[
+  {
+    "case": "invalid arguments, then correction",
+    "result": {
+      "status": "completed",
+      "steps": 3,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "读取指定文件；文件确实不存在时停止，不猜测内容。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "read_text_file",
+                "arguments": {
+                  "path": "labs/fixtures/hello.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"failed\", \"error_type\": \"invalid_arguments\", \"message\": \"relative_path is required\"}"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "labs/fixtures/hello.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"success\", \"content\": \"你好，Agent！\\n这是一次真实的文件读取。\\n\"}"
+        },
+        {
+          "role": "assistant",
+          "content": "你好，Agent！\n这是一次真实的文件读取。\n"
+        }
+      ],
+      "responses": [
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "read_text_file",
+                  "arguments": {
+                    "path": "labs/fixtures/hello.txt"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "read_text_file",
+                  "arguments": {
+                    "relative_path": "labs/fixtures/hello.txt"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "你好，Agent！\n这是一次真实的文件读取。\n"
+          }
+        }
+      ],
+      "tool_decisions": [
+        {
+          "step": 1,
+          "tool_name": "read_text_file",
+          "action": "correct",
+          "reason": "ask_model_to_fix_arguments",
+          "corrections_used": 1
+        },
+        {
+          "step": 2,
+          "tool_name": "read_text_file",
+          "action": "continue",
+          "reason": "tool_succeeded",
+          "corrections_used": 1
+        }
+      ],
+      "answer": "你好，Agent！\n这是一次真实的文件读取。\n"
+    }
+  },
+  {
+    "case": "required file missing",
+    "result": {
+      "status": "failed",
+      "steps": 1,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "读取指定文件；文件确实不存在时停止，不猜测内容。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "labs/fixtures/missing.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"failed\", \"error_type\": \"file_not_found\", \"path\": \"E:\\\\study\\\\agent\\\\labs\\\\fixtures\\\\missing.txt\"}"
+        }
+      ],
+      "responses": [
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "read_text_file",
+                  "arguments": {
+                    "relative_path": "labs/fixtures/missing.txt"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "tool_decisions": [
+        {
+          "step": 1,
+          "tool_name": "read_text_file",
+          "action": "stop",
+          "reason": "required_file_missing",
+          "corrections_used": 0
+        }
+      ],
+      "error_type": "tool_policy_stopped",
+      "tool_error_type": "file_not_found",
+      "stop_reason": "required_file_missing",
+      "pending_tool_calls": 0
+    }
+  },
+  {
+    "case": "path outside project",
+    "result": {
+      "status": "failed",
+      "steps": 1,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "读取指定文件；文件确实不存在时停止，不猜测内容。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "../outside.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"failed\", \"error_type\": \"path_outside_project\", \"path\": \"E:\\\\study\\\\outside.txt\"}"
+        }
+      ],
+      "responses": [
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "read_text_file",
+                  "arguments": {
+                    "relative_path": "../outside.txt"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "tool_decisions": [
+        {
+          "step": 1,
+          "tool_name": "read_text_file",
+          "action": "stop",
+          "reason": "permission_boundary",
+          "corrections_used": 0
+        }
+      ],
+      "error_type": "tool_policy_stopped",
+      "tool_error_type": "path_outside_project",
+      "stop_reason": "permission_boundary",
+      "pending_tool_calls": 0
+    }
+  },
+  {
+    "case": "unregistered tool",
+    "result": {
+      "status": "failed",
+      "steps": 1,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "读取指定文件；文件确实不存在时停止，不猜测内容。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "delete_file",
+                "arguments": {
+                  "relative_path": "labs/fixtures/hello.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "delete_file",
+          "content": "{\"status\": \"failed\", \"error_type\": \"unknown_tool\", \"tool_name\": \"delete_file\"}"
+        }
+      ],
+      "responses": [
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "delete_file",
+                  "arguments": {
+                    "relative_path": "labs/fixtures/hello.txt"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "tool_decisions": [
+        {
+          "step": 1,
+          "tool_name": "delete_file",
+          "action": "stop",
+          "reason": "tool_unavailable",
+          "corrections_used": 0
+        }
+      ],
+      "error_type": "tool_policy_stopped",
+      "tool_error_type": "unknown_tool",
+      "stop_reason": "tool_unavailable",
+      "pending_tool_calls": 0
+    }
+  },
+  {
+    "case": "invalid arguments repeated",
+    "result": {
+      "status": "failed",
+      "steps": 2,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "读取指定文件；文件确实不存在时停止，不猜测内容。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "read_text_file",
+                "arguments": {
+                  "path": "labs/fixtures/hello.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"failed\", \"error_type\": \"invalid_arguments\", \"message\": \"relative_path is required\"}"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "read_text_file",
+                "arguments": {
+                  "path": "labs/fixtures/hello.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"failed\", \"error_type\": \"invalid_arguments\", \"message\": \"relative_path is required\"}"
+        }
+      ],
+      "responses": [
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "read_text_file",
+                  "arguments": {
+                    "path": "labs/fixtures/hello.txt"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "read_text_file",
+                  "arguments": {
+                    "path": "labs/fixtures/hello.txt"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "tool_decisions": [
+        {
+          "step": 1,
+          "tool_name": "read_text_file",
+          "action": "correct",
+          "reason": "ask_model_to_fix_arguments",
+          "corrections_used": 1
+        },
+        {
+          "step": 2,
+          "tool_name": "read_text_file",
+          "action": "stop",
+          "reason": "correction_limit_exceeded",
+          "corrections_used": 1
+        }
+      ],
+      "error_type": "tool_policy_stopped",
+      "tool_error_type": "invalid_arguments",
+      "stop_reason": "correction_limit_exceeded",
+      "pending_tool_calls": 0
+    }
+  }
+]

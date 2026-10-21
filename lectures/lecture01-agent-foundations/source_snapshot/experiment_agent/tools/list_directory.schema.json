@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "relative_path": {
+      "type": "string",
+      "description": "相对于项目根目录的目录路径。使用 . 查看根目录，例如 labs/fixtures 查看该子目录。路径须位于项目内，且不能是空字符串或全空白。",
+      "minLength": 1,
+      "pattern": "\\S"
+    }
+  },
+  "required": ["relative_path"],
+  "additionalProperties": false
+}

@@ -1,0 +1,291 @@
+[
+  {
+    "case": "valid UTF-8 file",
+    "direct_exception_type": null,
+    "result": {
+      "status": "completed",
+      "steps": 2,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "读取 hello.txt 的 UTF-8 内容。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "hello.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"success\", \"content\": \"你好，异常处理！\"}"
+        },
+        {
+          "role": "assistant",
+          "content": "你好，异常处理！"
+        }
+      ],
+      "responses": [
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "read_text_file",
+                  "arguments": {
+                    "relative_path": "hello.txt"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "你好，异常处理！"
+          }
+        }
+      ],
+      "tool_decisions": [
+        {
+          "step": 1,
+          "tool_name": "read_text_file",
+          "action": "continue",
+          "reason": "tool_succeeded",
+          "corrections_used": 0
+        }
+      ],
+      "answer": "你好，异常处理！"
+    }
+  },
+  {
+    "case": "directory read (real OS exception)",
+    "direct_exception_type": "PermissionError",
+    "result": {
+      "status": "failed",
+      "steps": 1,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "读取 folder 的 UTF-8 内容。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "folder"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"failed\", \"error_type\": \"permission_denied\", \"tool_name\": \"read_text_file\", \"exception_type\": \"PermissionError\", \"message\": \"[Errno 13] Permission denied: 'C:\\\\\\\\Users\\\\\\\\USER\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\agent-exceptions-4085jlhx\\\\\\\\folder'\"}"
+        }
+      ],
+      "responses": [
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "read_text_file",
+                  "arguments": {
+                    "relative_path": "folder"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "tool_decisions": [
+        {
+          "step": 1,
+          "tool_name": "read_text_file",
+          "action": "stop",
+          "reason": "file_access_denied",
+          "corrections_used": 0
+        }
+      ],
+      "error_type": "tool_policy_stopped",
+      "tool_error_type": "permission_denied",
+      "stop_reason": "file_access_denied",
+      "pending_tool_calls": 0
+    }
+  },
+  {
+    "case": "invalid UTF-8 bytes (real decoding exception)",
+    "direct_exception_type": "UnicodeDecodeError",
+    "result": {
+      "status": "failed",
+      "steps": 1,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "读取 invalid.bin 的 UTF-8 内容。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "invalid.bin"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"failed\", \"error_type\": \"invalid_encoding\", \"tool_name\": \"read_text_file\", \"exception_type\": \"UnicodeDecodeError\", \"message\": \"'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\"}"
+        }
+      ],
+      "responses": [
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "read_text_file",
+                  "arguments": {
+                    "relative_path": "invalid.bin"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "tool_decisions": [
+        {
+          "step": 1,
+          "tool_name": "read_text_file",
+          "action": "stop",
+          "reason": "utf8_required",
+          "corrections_used": 0
+        }
+      ],
+      "error_type": "tool_policy_stopped",
+      "tool_error_type": "invalid_encoding",
+      "stop_reason": "utf8_required",
+      "pending_tool_calls": 0
+    }
+  },
+  {
+    "case": "permission error (injected; ACL unchanged)",
+    "direct_exception_type": "PermissionError",
+    "result": {
+      "status": "failed",
+      "steps": 1,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "读取 hello.txt 的 UTF-8 内容。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "hello.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"failed\", \"error_type\": \"permission_denied\", \"tool_name\": \"read_text_file\", \"exception_type\": \"PermissionError\", \"message\": \"Injected permission failure for this lesson.\"}"
+        }
+      ],
+      "responses": [
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "read_text_file",
+                  "arguments": {
+                    "relative_path": "hello.txt"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "tool_decisions": [
+        {
+          "step": 1,
+          "tool_name": "read_text_file",
+          "action": "stop",
+          "reason": "file_access_denied",
+          "corrections_used": 0
+        }
+      ],
+      "error_type": "tool_policy_stopped",
+      "tool_error_type": "permission_denied",
+      "stop_reason": "file_access_denied",
+      "pending_tool_calls": 0
+    }
+  }
+]

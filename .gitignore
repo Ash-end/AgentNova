@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.pytest_cache/
+
+# Lecture compilation logs, intermediate PDFs, and page previews
+lectures/**/build/
+lectures/**/learner_evidence_inbox/
+
+# Local credentials and private keys
+.secrets/
+.ssh/
+*.pem
+*.key
+*.pfx
+*.p12

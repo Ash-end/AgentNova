@@ -1,0 +1,20 @@
+{
+  "renderer": "Tectonic 0.17.0+20260731",
+  "compiled_source": "lecture.tex",
+  "native_compile_exit_code": 0,
+  "edition": "public-redacted",
+  "pages": 43,
+  "empty_pages": [],
+  "outside_page_safe_area": [],
+  "replacement_characters": 0,
+  "has_latest_timings": true,
+  "has_tools": true,
+  "has_quiz": true,
+  "snapshot_files": 95,
+  "snapshot_hashes_match": true,
+  "file_bytes": 634036,
+  "lecture.md_sha256": "d1c6f35f6bf0ebefcd9d0bbfbf1868b18fbc234ce472119051b042a6c024739a",
+  "lecture.tex_sha256": "54a35524933ac3c11be07fc21d3c929fcec7abf1473cb0a6bc744a055853cbe8",
+  "lecture01-agent-foundations.pdf_sha256": "8aefc22ae7f8a7fce74498435f55856599c4239451d2cdc20074504f628a640a",
+  "standalone_tex_has_no_content_dependency": true
+}

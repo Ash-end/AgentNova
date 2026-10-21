@@ -1,0 +1,35 @@
+{
+  "request": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "messages": [
+      {
+        "role": "user",
+        "content": "请用一句中文解释：什么是大模型的工具调用？"
+      }
+    ],
+    "stream": false,
+    "think": false,
+    "options": {
+      "temperature": 0,
+      "num_predict": 128
+    }
+  },
+  "response": {
+    "model": "qwen3.5:9b-q4_K_M",
+    "created_at": "2026-10-21T10:32:50.769728Z",
+    "message": {
+      "role": "assistant",
+      "content": "大模型的工具调用是指大语言模型在理解用户意图后，能够自主识别并调用外部程序、API 或插件来执行具体任务（如搜索信息、计算数据或操作数据库）的能力。"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 51211506000,
+    "load_duration": 31004846200,
+    "prompt_eval_count": 23,
+    "prompt_eval_cached_count": 0,
+    "prompt_eval_duration": 18868674000,
+    "eval_count": 44,
+    "eval_duration": 1335121000
+  },
+  "elapsed_seconds": 51.22999269992579
+}

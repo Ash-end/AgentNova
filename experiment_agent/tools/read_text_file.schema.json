@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "relative_path": {
+      "type": "string",
+      "description": "相对于项目根目录的 UTF-8 文本文件路径，例如 labs/fixtures/hello.txt。路径须位于项目内，且不能是空字符串或全空白。",
+      "minLength": 1,
+      "pattern": "\\S"
+    }
+  },
+  "required": ["relative_path"],
+  "additionalProperties": false
+}

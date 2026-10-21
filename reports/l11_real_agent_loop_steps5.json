@@ -1,0 +1,204 @@
+{
+  "requests": [
+    {
+      "model": "qwen3.5:9b-q4_K_M",
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "请调用 read_text_file 读取 labs/fixtures/hello.txt 的真实内容。"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "read_text_file",
+            "description": "读取项目内指定 UTF-8 文本文件，用于查看代码、配置或日志。",
+            "parameters": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "relative_path": {
+                  "type": "string",
+                  "description": "相对于项目根目录的 UTF-8 文本文件路径，例如 labs/fixtures/hello.txt。路径须位于项目内，且不能是空字符串或全空白。",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "relative_path"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      ],
+      "stream": false,
+      "think": false,
+      "keep_alive": "10m",
+      "options": {
+        "temperature": 0,
+        "num_predict": 256
+      }
+    },
+    {
+      "model": "qwen3.5:9b-q4_K_M",
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "请调用 read_text_file 读取 labs/fixtures/hello.txt 的真实内容。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_sazne8nb",
+              "function": {
+                "index": 0,
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "labs/fixtures/hello.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"success\", \"content\": \"你好，Agent！\\n这是一次真实的文件读取。\\n\"}"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "read_text_file",
+            "description": "读取项目内指定 UTF-8 文本文件，用于查看代码、配置或日志。",
+            "parameters": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "relative_path": {
+                  "type": "string",
+                  "description": "相对于项目根目录的 UTF-8 文本文件路径，例如 labs/fixtures/hello.txt。路径须位于项目内，且不能是空字符串或全空白。",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "relative_path"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      ],
+      "stream": false,
+      "think": false,
+      "keep_alive": "10m",
+      "options": {
+        "temperature": 0,
+        "num_predict": 256
+      }
+    }
+  ],
+  "result": {
+    "status": "completed",
+    "steps": 2,
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+      },
+      {
+        "role": "user",
+        "content": "请调用 read_text_file 读取 labs/fixtures/hello.txt 的真实内容。"
+      },
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_sazne8nb",
+            "function": {
+              "index": 0,
+              "name": "read_text_file",
+              "arguments": {
+                "relative_path": "labs/fixtures/hello.txt"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_name": "read_text_file",
+        "content": "{\"status\": \"success\", \"content\": \"你好，Agent！\\n这是一次真实的文件读取。\\n\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "文件 `labs/fixtures/hello.txt` 的内容如下：\n\n```\n你好，Agent！\n这是一次真实的文件读取。\n```"
+      }
+    ],
+    "responses": [
+      {
+        "model": "qwen3.5:9b-q4_K_M",
+        "created_at": "2026-10-21T11:12:58.8213861Z",
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_sazne8nb",
+              "function": {
+                "index": 0,
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "labs/fixtures/hello.txt"
+                }
+              }
+            }
+          ]
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 507550700,
+        "load_duration": 2500400,
+        "prompt_eval_count": 358,
+        "prompt_eval_cached_count": 354,
+        "prompt_eval_duration": 238045000,
+        "eval_count": 32,
+        "eval_duration": 263048999
+      },
+      {
+        "model": "qwen3.5:9b-q4_K_M",
+        "created_at": "2026-10-21T11:12:59.1439834Z",
+        "message": {
+          "role": "assistant",
+          "content": "文件 `labs/fixtures/hello.txt` 的内容如下：\n\n```\n你好，Agent！\n这是一次真实的文件读取。\n```"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 304093200,
+        "load_duration": 2509700,
+        "prompt_eval_count": 427,
+        "prompt_eval_cached_count": 354,
+        "prompt_eval_duration": 54712000,
+        "eval_count": 29,
+        "eval_duration": 242878000
+      }
+    ],
+    "answer": "文件 `labs/fixtures/hello.txt` 的内容如下：\n\n```\n你好，Agent！\n这是一次真实的文件读取。\n```"
+  },
+  "elapsed_seconds": 0.8576148999854922
+}
