@@ -1,0 +1,135 @@
+{
+  "task": "请实际运行一次长时间等待的演示脚本；超过工具时限后停止，不要重试，也不要改成其他脚本。",
+  "requests": [
+    {
+      "model": "qwen3.5:9b-q4_K_M",
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "请实际运行一次长时间等待的演示脚本；超过工具时限后停止，不要重试，也不要改成其他脚本。"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "run_python_script",
+            "description": "实际运行一个固定允许的教学脚本。normal 正常计算；error 触发演示异常；timeout 长时间等待。每任务最多调用一次执行函数，脚本超时2秒；结果含退出码、stdout、stderr。",
+            "parameters": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "script_id": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "error",
+                    "timeout"
+                  ],
+                  "description": "只运行固定允许的教学脚本：normal 正常计算，error 演示异常，timeout 演示超时。路径、解释器和时限由程序固定。"
+                }
+              },
+              "required": [
+                "script_id"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      ],
+      "stream": false,
+      "think": false,
+      "keep_alive": "10m",
+      "options": {
+        "temperature": 0,
+        "num_predict": 512
+      }
+    }
+  ],
+  "result": {
+    "status": "failed",
+    "steps": 1,
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+      },
+      {
+        "role": "user",
+        "content": "请实际运行一次长时间等待的演示脚本；超过工具时限后停止，不要重试，也不要改成其他脚本。"
+      },
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_7npd02cz",
+            "function": {
+              "index": 0,
+              "name": "run_python_script",
+              "arguments": {
+                "script_id": "timeout"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_name": "run_python_script",
+        "content": "{\"status\": \"failed\", \"script_id\": \"timeout\", \"exit_code\": null, \"stdout\": \"超时脚本：开始等待。\\n\", \"stderr\": \"\", \"timed_out\": true, \"duration_seconds\": 2.010081899999932, \"error_type\": \"tool_timeout\", \"exception_type\": \"TimeoutExpired\"}"
+      }
+    ],
+    "responses": [
+      {
+        "model": "qwen3.5:9b-q4_K_M",
+        "created_at": "2026-10-22T09:17:20.1429395Z",
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_7npd02cz",
+              "function": {
+                "index": 0,
+                "name": "run_python_script",
+                "arguments": {
+                  "script_id": "timeout"
+                }
+              }
+            }
+          ]
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 312272500,
+        "load_duration": 3000000,
+        "prompt_eval_count": 402,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 80718000,
+        "eval_count": 29,
+        "eval_duration": 224664000
+      }
+    ],
+    "tool_decisions": [
+      {
+        "step": 1,
+        "tool_name": "run_python_script",
+        "action": "stop",
+        "reason": "tool_timeout_needs_review",
+        "corrections_used": 0
+      }
+    ],
+    "error_type": "tool_policy_stopped",
+    "tool_error_type": "tool_timeout",
+    "stop_reason": "tool_timeout_needs_review",
+    "pending_tool_calls": 0
+  },
+  "execution_function_calls": 1,
+  "expected_behavior_matched": true,
+  "elapsed_seconds": 2.3478577000023506
+}

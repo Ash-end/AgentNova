@@ -1,4 +1,4 @@
-"""本课针对只读文件任务的工具结果策略。"""
+"""文件读取与受控脚本执行任务的工具结果策略。"""
 
 
 def decide_tool_result(result, corrections_used, max_corrections=1):
@@ -24,6 +24,10 @@ def decide_tool_result(result, corrections_used, max_corrections=1):
         "invalid_encoding": "utf8_required",
         "tool_timeout": "tool_timeout_needs_review",
         "io_error": "io_failure",
-        
+        "script_not_allowed": "script_not_authorized",
+        "script_not_file": "expected_script_file",
+        "process_failed": "script_process_failed",
+        "process_start_failed": "script_start_failed",
+        "execution_limit_exceeded": "script_execution_budget_exceeded",
     }
     return {"action": "stop", "reason": reasons.get(error_type, "unclassified_tool_failure")}

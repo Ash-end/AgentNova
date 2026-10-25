@@ -6,7 +6,9 @@
 
 ## 从这里开始
 
-本日复盘：[Lecture 01：从文件工具到双工具真实循环](lectures/lecture01-agent-foundations/lecture.md)。同目录提供 LaTeX、PDF 与原始资料快照；作为下一次复习入口。
+阶段复盘：[Lecture 系列总目录](lectures/README.md)。[Lecture 01](lectures/lecture01-agent-foundations/lecture.md)覆盖第 1–16 课；[Lecture 02](lectures/lecture02-experiment-agent/lecture.md)覆盖第 17–27 课，包含详细过程、错题、源码、运行记录和真实训练结果。两讲均提供 PDF、LaTeX、Markdown 与固定资料快照。
+
+2026-10-25 当前入口：[第 27 次动手：真实线性回归训练](lessons/27-real-linear-regression.md)。学习者已独立运行两组训练及指定 7 项测试，正确解释执行成功与指标未达标的区别。此前 AI 全部 122 项回归与 28 项练习通过；模型配置选择与 G1 独立迁移仍待完成。
 
 | 文档 | 用途 |
 | --- | --- |

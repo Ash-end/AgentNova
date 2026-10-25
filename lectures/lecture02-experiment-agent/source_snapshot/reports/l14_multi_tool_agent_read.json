@@ -1,0 +1,264 @@
+{
+  "task": "请告诉我 labs/fixtures/hello.txt 的实际文本内容。",
+  "requests": [
+    {
+      "model": "qwen3.5:9b-q4_K_M",
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "请告诉我 labs/fixtures/hello.txt 的实际文本内容。"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "read_text_file",
+            "description": "读取项目内指定 UTF-8 文件的文本内容。",
+            "parameters": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "relative_path": {
+                  "type": "string",
+                  "description": "相对于项目根目录的 UTF-8 文本文件路径，例如 labs/fixtures/hello.txt。路径须位于项目内，且不能是空字符串或全空白。",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "relative_path"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "list_directory",
+            "description": "查看项目目录下一层的文件和子目录名称、类型及路径。最多返回50项；truncated表示未完整列出。",
+            "parameters": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "relative_path": {
+                  "type": "string",
+                  "description": "相对于项目根目录的目录路径。使用 . 查看根目录，例如 labs/fixtures 查看该子目录。路径须位于项目内，且不能是空字符串或全空白。",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "relative_path"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      ],
+      "stream": false,
+      "think": false,
+      "keep_alive": "10m",
+      "options": {
+        "temperature": 0,
+        "num_predict": 512
+      }
+    },
+    {
+      "model": "qwen3.5:9b-q4_K_M",
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "请告诉我 labs/fixtures/hello.txt 的实际文本内容。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_evzr3z1s",
+              "function": {
+                "index": 0,
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "labs/fixtures/hello.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"success\", \"content\": \"你好，Agent！\\n这是一次真实的文件读取。\\n\"}"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "read_text_file",
+            "description": "读取项目内指定 UTF-8 文件的文本内容。",
+            "parameters": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "relative_path": {
+                  "type": "string",
+                  "description": "相对于项目根目录的 UTF-8 文本文件路径，例如 labs/fixtures/hello.txt。路径须位于项目内，且不能是空字符串或全空白。",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "relative_path"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "list_directory",
+            "description": "查看项目目录下一层的文件和子目录名称、类型及路径。最多返回50项；truncated表示未完整列出。",
+            "parameters": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "relative_path": {
+                  "type": "string",
+                  "description": "相对于项目根目录的目录路径。使用 . 查看根目录，例如 labs/fixtures 查看该子目录。路径须位于项目内，且不能是空字符串或全空白。",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "relative_path"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      ],
+      "stream": false,
+      "think": false,
+      "keep_alive": "10m",
+      "options": {
+        "temperature": 0,
+        "num_predict": 512
+      }
+    }
+  ],
+  "result": {
+    "status": "completed",
+    "steps": 2,
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+      },
+      {
+        "role": "user",
+        "content": "请告诉我 labs/fixtures/hello.txt 的实际文本内容。"
+      },
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_evzr3z1s",
+            "function": {
+              "index": 0,
+              "name": "read_text_file",
+              "arguments": {
+                "relative_path": "labs/fixtures/hello.txt"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_name": "read_text_file",
+        "content": "{\"status\": \"success\", \"content\": \"你好，Agent！\\n这是一次真实的文件读取。\\n\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "`labs/fixtures/hello.txt` 的实际文本内容如下：\n\n```\n你好，Agent！\n这是一次真实的文件读取。\n```"
+      }
+    ],
+    "responses": [
+      {
+        "model": "qwen3.5:9b-q4_K_M",
+        "created_at": "2026-10-21T13:57:08.112478Z",
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_evzr3z1s",
+              "function": {
+                "index": 0,
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "labs/fixtures/hello.txt"
+                }
+              }
+            }
+          ]
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 521344000,
+        "load_duration": 2999900,
+        "prompt_eval_count": 470,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 251658000,
+        "eval_count": 32,
+        "eval_duration": 262829999
+      },
+      {
+        "model": "qwen3.5:9b-q4_K_M",
+        "created_at": "2026-10-21T13:57:08.4422917Z",
+        "message": {
+          "role": "assistant",
+          "content": "`labs/fixtures/hello.txt` 的实际文本内容如下：\n\n```\n你好，Agent！\n这是一次真实的文件读取。\n```"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 306023400,
+        "load_duration": 2999600,
+        "prompt_eval_count": 539,
+        "prompt_eval_cached_count": 466,
+        "prompt_eval_duration": 54037000,
+        "eval_count": 30,
+        "eval_duration": 244887000
+      }
+    ],
+    "tool_decisions": [
+      {
+        "step": 1,
+        "tool_name": "read_text_file",
+        "action": "continue",
+        "reason": "tool_succeeded",
+        "corrections_used": 0
+      }
+    ],
+    "answer": "`labs/fixtures/hello.txt` 的实际文本内容如下：\n\n```\n你好，Agent！\n这是一次真实的文件读取。\n```"
+  },
+  "observed_tools": [
+    "read_text_file"
+  ],
+  "expected_sequence_matched": true,
+  "elapsed_seconds": 0.8564133000327274
+}

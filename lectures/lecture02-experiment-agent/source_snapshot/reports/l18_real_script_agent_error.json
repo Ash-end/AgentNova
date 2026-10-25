@@ -1,0 +1,135 @@
+{
+  "task": "请实际运行一次会触发演示异常的脚本，检查真实退出码和错误输出；失败后停止，不要换脚本或再次执行。",
+  "requests": [
+    {
+      "model": "qwen3.5:9b-q4_K_M",
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "请实际运行一次会触发演示异常的脚本，检查真实退出码和错误输出；失败后停止，不要换脚本或再次执行。"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "run_python_script",
+            "description": "实际运行一个固定允许的教学脚本。normal 正常计算；error 触发演示异常；timeout 长时间等待。每任务最多调用一次执行函数，脚本超时2秒；结果含退出码、stdout、stderr。",
+            "parameters": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "script_id": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "error",
+                    "timeout"
+                  ],
+                  "description": "只运行固定允许的教学脚本：normal 正常计算，error 演示异常，timeout 演示超时。路径、解释器和时限由程序固定。"
+                }
+              },
+              "required": [
+                "script_id"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      ],
+      "stream": false,
+      "think": false,
+      "keep_alive": "10m",
+      "options": {
+        "temperature": 0,
+        "num_predict": 512
+      }
+    }
+  ],
+  "result": {
+    "status": "failed",
+    "steps": 1,
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+      },
+      {
+        "role": "user",
+        "content": "请实际运行一次会触发演示异常的脚本，检查真实退出码和错误输出；失败后停止，不要换脚本或再次执行。"
+      },
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_69qndcgs",
+            "function": {
+              "index": 0,
+              "name": "run_python_script",
+              "arguments": {
+                "script_id": "error"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_name": "run_python_script",
+        "content": "{\"status\": \"failed\", \"script_id\": \"error\", \"exit_code\": 1, \"stdout\": \"异常脚本：准备触发 RuntimeError。\\n\", \"stderr\": \"Traceback (most recent call last):\\n  File \\\"E:\\\\study\\\\agent\\\\labs\\\\fixtures\\\\process_scripts\\\\error.py\\\", line 5, in <module>\\n    raise RuntimeError(\\\"演示用异常：计算未完成。\\\")\\nRuntimeError: 演示用异常：计算未完成。\\n\", \"timed_out\": false, \"duration_seconds\": 0.02253249999921536, \"error_type\": \"process_failed\"}"
+      }
+    ],
+    "responses": [
+      {
+        "model": "qwen3.5:9b-q4_K_M",
+        "created_at": "2026-10-22T09:17:19.7810233Z",
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_69qndcgs",
+              "function": {
+                "index": 0,
+                "name": "run_python_script",
+                "arguments": {
+                  "script_id": "error"
+                }
+              }
+            }
+          ]
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 321699700,
+        "load_duration": 3004400,
+        "prompt_eval_count": 407,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 85667000,
+        "eval_count": 29,
+        "eval_duration": 230072000
+      }
+    ],
+    "tool_decisions": [
+      {
+        "step": 1,
+        "tool_name": "run_python_script",
+        "action": "stop",
+        "reason": "script_process_failed",
+        "corrections_used": 0
+      }
+    ],
+    "error_type": "tool_policy_stopped",
+    "tool_error_type": "process_failed",
+    "stop_reason": "script_process_failed",
+    "pending_tool_calls": 0
+  },
+  "execution_function_calls": 1,
+  "expected_behavior_matched": true,
+  "elapsed_seconds": 0.3613636999980372
+}

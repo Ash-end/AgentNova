@@ -1,0 +1,207 @@
+```
+(agent-study) E:\study\agent>python -X utf8 -m labs.l18_real_script_agent --case all
+Real local model; only run_python_script is exposed; one execution call per task.
+
+Case: normal
+Task: 请实际运行一次正常计算演示脚本，根据工具返回的退出码和输出，说明是否执行成功。不要仅口头声称已运行。
+
+Model request 1/4 (HTTP timeout: 180s)...
+Model response:
+{
+  "model": "qwen3.5:9b-q4_K_M",
+  "created_at": "2026-10-22T09:17:18.4191486Z",
+  "message": {
+    "role": "assistant",
+    "content": "",
+    "tool_calls": [
+      {
+        "id": "call_ungcwwpz",
+        "function": {
+          "index": 0,
+          "name": "run_python_script",
+          "arguments": {
+            "script_id": "normal"
+          }
+        }
+      }
+    ]
+  },
+  "done": true,
+  "done_reason": "stop",
+  "total_duration": 46471442600,
+  "load_duration": 26409993800,
+  "prompt_eval_count": 408,
+  "prompt_eval_cached_count": 0,
+  "prompt_eval_duration": 18781592000,
+  "eval_count": 29,
+  "eval_duration": 1276099000
+}
+Tool result [run_python_script]:
+{
+  "status": "success",
+  "script_id": "normal",
+  "exit_code": 0,
+  "stdout": "正常脚本：2 + 3 = 5\n",
+  "stderr": "诊断信息：本次计算已完成。\n",
+  "timed_out": false,
+  "duration_seconds": 0.02459159999853
+}
+
+Model request 2/4 (HTTP timeout: 180s)...
+Model response:
+{
+  "model": "qwen3.5:9b-q4_K_M",
+  "created_at": "2026-10-22T09:17:19.4405606Z",
+  "message": {
+    "role": "assistant",
+    "content": "根据工具返回的结果，正常计算演示脚本执行成功。具体信息如下：\n\n- **退出码 (exit_code)**: 0（表示程序正常结束）\n- **标准输出 (stdout)**: \"正常脚本：2 + 3 = 5\\n\"\n- **诊断信息 (stderr)**: \"本次计算已完成。\\n\"\n- **超时状态 (timed_out)**: false\n- **执行耗时**: 约 0.025 秒\n\n因此，该脚本已成功运行并完成了预期的正常计算任务。"
+  },
+  "done": true,
+  "done_reason": "stop",
+  "total_duration": 974868500,
+  "load_duration": 3004400,
+  "prompt_eval_count": 528,
+  "prompt_eval_cached_count": 404,
+  "prompt_eval_duration": 59319000,
+  "eval_count": 115,
+  "eval_duration": 909257000
+}
+
+Loop status: completed
+Model decisions: 2
+Execution function calls: 1
+Policy: continue / tool_succeeded
+Final model reply: 根据工具返回的结果，正常计算演示脚本执行成功。具体信息如下：
+
+- **退出码 (exit_code)**: 0（表示程序正常结束）
+- **标准输出 (stdout)**: "正常脚本：2 + 3 = 5\n"
+- **诊断信息 (stderr)**: "本次计算已完成。\n"
+- **超时状态 (timed_out)**: false
+- **执行耗时**: 约 0.025 秒
+
+因此，该脚本已成功运行并完成了预期的正常计算任务。
+Expected behavior matched: True
+Elapsed seconds: 47.498
+Saved report: E:\study\agent\reports\l18_real_script_agent_normal.json
+
+Case: error
+Task: 请实际运行一次会触发演示异常的脚本，检查真实退出码和错误输出；失败后停止，不要换脚本或再次执行。
+
+Model request 1/4 (HTTP timeout: 180s)...
+Model response:
+{
+  "model": "qwen3.5:9b-q4_K_M",
+  "created_at": "2026-10-22T09:17:19.7810233Z",
+  "message": {
+    "role": "assistant",
+    "content": "",
+    "tool_calls": [
+      {
+        "id": "call_69qndcgs",
+        "function": {
+          "index": 0,
+          "name": "run_python_script",
+          "arguments": {
+            "script_id": "error"
+          }
+        }
+      }
+    ]
+  },
+  "done": true,
+  "done_reason": "stop",
+  "total_duration": 321699700,
+  "load_duration": 3004400,
+  "prompt_eval_count": 407,
+  "prompt_eval_cached_count": 0,
+  "prompt_eval_duration": 85667000,
+  "eval_count": 29,
+  "eval_duration": 230072000
+}
+Tool result [run_python_script]:
+{
+  "status": "failed",
+  "script_id": "error",
+  "exit_code": 1,
+  "stdout": "异常脚本：准备触发 RuntimeError。\n",
+  "stderr": "Traceback (most recent call last):\n  File \"E:\\study\\agent\\labs\\fixtures\\process_scripts\\error.py\", line 5, in <module>\n    raise RuntimeError(\"演示用异常：计算未完成。\")\nRuntimeError: 演示用异常：计算未完成。\n",
+  "timed_out": false,
+  "duration_seconds": 0.02253249999921536,
+  "error_type": "process_failed"
+}
+
+Loop status: failed
+Model decisions: 1
+Execution function calls: 1
+Policy: stop / script_process_failed
+No final model reply: loop stopped before requesting another reply.
+Stopped because: process_failed / script_process_failed
+Expected behavior matched: True
+Elapsed seconds: 0.361
+Saved report: E:\study\agent\reports\l18_real_script_agent_error.json
+
+Case: timeout
+Task: 请实际运行一次长时间等待的演示脚本；超过工具时限后停止，不要重试，也不要改成其他脚本。
+
+Model request 1/4 (HTTP timeout: 180s)...
+Model response:
+{
+  "model": "qwen3.5:9b-q4_K_M",
+  "created_at": "2026-10-22T09:17:20.1429395Z",
+  "message": {
+    "role": "assistant",
+    "content": "",
+    "tool_calls": [
+      {
+        "id": "call_7npd02cz",
+        "function": {
+          "index": 0,
+          "name": "run_python_script",
+          "arguments": {
+            "script_id": "timeout"
+          }
+        }
+      }
+    ]
+  },
+  "done": true,
+  "done_reason": "stop",
+  "total_duration": 312272500,
+  "load_duration": 3000000,
+  "prompt_eval_count": 402,
+  "prompt_eval_cached_count": 0,
+  "prompt_eval_duration": 80718000,
+  "eval_count": 29,
+  "eval_duration": 224664000
+}
+Tool result [run_python_script]:
+{
+  "status": "failed",
+  "script_id": "timeout",
+  "exit_code": null,
+  "stdout": "超时脚本：开始等待。\n",
+  "stderr": "",
+  "timed_out": true,
+  "duration_seconds": 2.010081899999932,
+  "error_type": "tool_timeout",
+  "exception_type": "TimeoutExpired"
+}
+
+Loop status: failed
+Model decisions: 1
+Execution function calls: 1
+Policy: stop / tool_timeout_needs_review
+No final model reply: loop stopped before requesting another reply.
+Stopped because: tool_timeout / tool_timeout_needs_review
+Expected behavior matched: True
+Elapsed seconds: 2.348
+Saved report: E:\study\agent\reports\l18_real_script_agent_timeout.json
+```
+
+
+
+----------------------------------------------------------------------
+
+Ran 8 tests in 2.211s
+
+OK

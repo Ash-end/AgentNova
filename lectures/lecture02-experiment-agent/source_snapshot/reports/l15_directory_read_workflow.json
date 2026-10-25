@@ -1,0 +1,120 @@
+[
+  {
+    "case": "unique_text_file",
+    "status": "success",
+    "result": {
+      "status": "success",
+      "content": "你好，Agent！\n这是一次真实的文件读取。\n"
+    },
+    "trace": [
+      {
+        "step": "list_directory",
+        "result": {
+          "status": "success",
+          "entries": [
+            {
+              "name": "hello.txt",
+              "type": "file",
+              "relative_path": "labs/fixtures/hello.txt"
+            }
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "step": "select_unique_text_file",
+        "result": {
+          "status": "success",
+          "relative_path": "labs/fixtures/hello.txt"
+        }
+      },
+      {
+        "step": "read_text_file",
+        "result": {
+          "status": "success",
+          "content": "你好，Agent！\n这是一次真实的文件读取。\n"
+        }
+      }
+    ]
+  },
+  {
+    "case": "multiple_text_files",
+    "status": "failed",
+    "result": {
+      "status": "failed",
+      "error_type": "multiple_text_files"
+    },
+    "trace": [
+      {
+        "step": "list_directory",
+        "result": {
+          "status": "success",
+          "entries": [
+            {
+              "name": "a.txt",
+              "type": "file",
+              "relative_path": "multiple/a.txt"
+            },
+            {
+              "name": "b.txt",
+              "type": "file",
+              "relative_path": "multiple/b.txt"
+            }
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "step": "select_unique_text_file",
+        "result": {
+          "status": "failed",
+          "error_type": "multiple_text_files"
+        }
+      }
+    ]
+  },
+  {
+    "case": "invalid_utf8_file",
+    "status": "failed",
+    "result": {
+      "status": "failed",
+      "error_type": "invalid_encoding",
+      "tool_name": "read_text_file",
+      "exception_type": "UnicodeDecodeError",
+      "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+    },
+    "trace": [
+      {
+        "step": "list_directory",
+        "result": {
+          "status": "success",
+          "entries": [
+            {
+              "name": "bad.txt",
+              "type": "file",
+              "relative_path": "invalid_utf8/bad.txt"
+            }
+          ],
+          "truncated": false
+        }
+      },
+      {
+        "step": "select_unique_text_file",
+        "result": {
+          "status": "success",
+          "relative_path": "invalid_utf8/bad.txt"
+        }
+      },
+      {
+        "step": "read_text_file",
+        "result": {
+          "status": "failed",
+          "error_type": "invalid_encoding",
+          "tool_name": "read_text_file",
+          "exception_type": "UnicodeDecodeError",
+          "message": "'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+        }
+      }
+    ]
+  }
+]

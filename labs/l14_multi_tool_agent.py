@@ -9,6 +9,7 @@ from urllib.request import Request, urlopen
 from experiment_agent.ollama_loop import run_ollama_loop
 from experiment_agent.tool_policy import decide_tool_result
 from experiment_agent.tools.registry import build_tool_registry
+from experiment_agent.verification import verify_unique_text_read
 
 
 TASKS = {
@@ -59,6 +60,10 @@ def run_case(root, case, descriptions, max_steps):
         max_steps=max_steps, tool_policy=decide_tool_result,
     )
     elapsed = perf_counter() - started
+    if case == "discover":
+        verification = verify_unique_text_read(result, "labs/fixtures")
+    else:
+        verification = {"status": "not_applicable", "reason": "discover_only"}
     observations = [m for m in result["messages"] if m["role"] == "tool"]
     observed_tools = [m["tool_name"] for m in observations]
     for message in result["messages"][seen_messages:]:
@@ -66,6 +71,13 @@ def run_case(root, case, descriptions, max_steps):
             print(f"Tool result [{message['tool_name']}]: {message['content']}")
     trace_matches = observed_tools == EXPECTED[case]
     print(f"\nLoop status: {result['status']}")
+    print(f"Task verification: {verification['status']}")
+    print(f"Verification reason: {verification['reason']}")
+    if "relative_path" in verification:
+        print(f"Verified path: {verification['relative_path']}")
+    if "expected_path" in verification:
+        print(f"Expected path: {verification['expected_path']}")
+        print(f"Actual path: {verification['actual_path']}")
     print(f"Model decisions: {result['steps']}")
     print(f"Observed tools: {observed_tools}")
     print(f"Expected simple tool sequence matched: {trace_matches}")
@@ -77,11 +89,13 @@ def run_case(root, case, descriptions, max_steps):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps({
         "task": TASKS[case], "requests": requests, "result": result,
+        "verification": verification,
         "observed_tools": observed_tools, "expected_sequence_matched": trace_matches,
         "elapsed_seconds": elapsed,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Saved report: {path}")
-    return result["status"] == "completed" and trace_matches
+    accepted = verification["status"] == "passed" if case == "discover" else trace_matches
+    return result["status"] == "completed" and accepted
 
 
 def main():
@@ -107,7 +121,7 @@ def main():
         if not run_case(root, case, descriptions, args.max_steps):
             passed = False
     if not passed:
-        raise SystemExit("A task did not complete with the expected simple tool sequence. Inspect the saved report.")
+        raise SystemExit("A task did not meet its acceptance checks. Inspect the saved report.")
 
 
 if __name__ == "__main__":

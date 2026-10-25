@@ -1,0 +1,304 @@
+[
+  {
+    "case": "correct_completion",
+    "source": "deterministic_chat_real_file_tools",
+    "run": {
+      "status": "completed",
+      "steps": 3,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "先查看 data 目录，找到唯一的普通 .txt 文件并读取其正文。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "list_directory",
+                "arguments": {
+                  "relative_path": "data"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "list_directory",
+          "content": "{\"status\": \"success\", \"entries\": [{\"name\": \"hello.txt\", \"type\": \"file\", \"relative_path\": \"data/hello.txt\"}], \"truncated\": false}"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "data/hello.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"success\", \"content\": \"你好，验收器！\\n\"}"
+        },
+        {
+          "role": "assistant",
+          "content": "文件内容：\n你好，验收器！\n"
+        }
+      ],
+      "responses": [
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "list_directory",
+                  "arguments": {
+                    "relative_path": "data"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "read_text_file",
+                  "arguments": {
+                    "relative_path": "data/hello.txt"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "文件内容：\n你好，验收器！\n"
+          }
+        }
+      ],
+      "tool_decisions": [],
+      "answer": "文件内容：\n你好，验收器！\n"
+    },
+    "verification": {
+      "status": "passed",
+      "reason": "verified_read",
+      "relative_path": "data/hello.txt"
+    }
+  },
+  {
+    "case": "claimed_without_reading",
+    "source": "deterministic_chat_real_file_tools",
+    "run": {
+      "status": "completed",
+      "steps": 2,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "先查看 data 目录，找到唯一的普通 .txt 文件并读取其正文。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "list_directory",
+                "arguments": {
+                  "relative_path": "data"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "list_directory",
+          "content": "{\"status\": \"success\", \"entries\": [{\"name\": \"hello.txt\", \"type\": \"file\", \"relative_path\": \"data/hello.txt\"}], \"truncated\": false}"
+        },
+        {
+          "role": "assistant",
+          "content": "我已成功读取 data/hello.txt。"
+        }
+      ],
+      "responses": [
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "list_directory",
+                  "arguments": {
+                    "relative_path": "data"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "我已成功读取 data/hello.txt。"
+          }
+        }
+      ],
+      "tool_decisions": [],
+      "answer": "我已成功读取 data/hello.txt。"
+    },
+    "verification": {
+      "status": "failed",
+      "reason": "missing_read_evidence"
+    }
+  },
+  {
+    "case": "wrong_file_read",
+    "source": "deterministic_chat_real_file_tools",
+    "run": {
+      "status": "completed",
+      "steps": 3,
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "先查看 data 目录，找到唯一的普通 .txt 文件并读取其正文。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "list_directory",
+                "arguments": {
+                  "relative_path": "data"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "list_directory",
+          "content": "{\"status\": \"success\", \"entries\": [{\"name\": \"hello.txt\", \"type\": \"file\", \"relative_path\": \"data/hello.txt\"}], \"truncated\": false}"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "function": {
+                "name": "read_text_file",
+                "arguments": {
+                  "relative_path": "other/other.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "read_text_file",
+          "content": "{\"status\": \"success\", \"content\": \"这是另一个文件。\\n\"}"
+        },
+        {
+          "role": "assistant",
+          "content": "已读取文件，任务完成。"
+        }
+      ],
+      "responses": [
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "list_directory",
+                  "arguments": {
+                    "relative_path": "data"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "function": {
+                  "name": "read_text_file",
+                  "arguments": {
+                    "relative_path": "other/other.txt"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "done": true,
+          "done_reason": "stop",
+          "message": {
+            "role": "assistant",
+            "content": "已读取文件，任务完成。"
+          }
+        }
+      ],
+      "tool_decisions": [],
+      "answer": "已读取文件，任务完成。"
+    },
+    "verification": {
+      "status": "failed",
+      "reason": "wrong_file_read",
+      "expected_path": "data/hello.txt",
+      "actual_path": "other/other.txt"
+    }
+  }
+]

@@ -4,10 +4,11 @@ from pathlib import Path
 
 from experiment_agent.tools.directory_tools import list_directory
 from experiment_agent.tools.file_tools import read_text_file
+from experiment_agent.tools.script_tools import run_python_script
 
 
-def build_tool_registry(project_root: str) -> dict:
-    """创建绑定到指定项目根目录的工具表。"""
+def build_tool_registry(project_root: str, *, enable_python_scripts=False) -> dict:
+    """创建绑定可信根目录的工具表；脚本执行能力需显式启用。"""
     root = str(Path(project_root).resolve())
 
     def read_project_file(relative_path: str) -> dict:
@@ -16,10 +17,16 @@ def build_tool_registry(project_root: str) -> dict:
     def list_project_directory(relative_path: str) -> dict:
         return list_directory(root, relative_path)
 
-    return {
+    tools = {
         "read_text_file": read_project_file,
         "list_directory": list_project_directory,
     }
+    if enable_python_scripts:
+        def run_project_script(script_id: str) -> dict:
+            return run_python_script(root, script_id)
+
+        tools["run_python_script"] = run_project_script
+    return tools
 
 
 def validate_relative_path_arguments(arguments: object) -> str | None:
@@ -51,6 +58,19 @@ def _exception_result(name: str, error_type: str, error: Exception) -> dict:
     }
 
 
+def validate_script_arguments(arguments: object) -> str | None:
+    """执行工具只接收 script_id，不允许调用方覆盖运行配置。"""
+    if not isinstance(arguments, dict):
+        return "arguments must be a dictionary"
+    if "script_id" not in arguments:
+        return "script_id is required"
+    if set(arguments) != {"script_id"}:
+        return "only script_id is allowed"
+    if not isinstance(arguments["script_id"], str) or not arguments["script_id"].strip():
+        return "script_id must be a non-empty string"
+    return None
+
+
 def call_tool(tools: dict, name: str, arguments: object) -> dict:
     """按名称查找并校验参数，在实际执行边界转换已知文件异常。"""
     tool = tools.get(name)
@@ -70,6 +90,11 @@ def call_tool(tools: dict, name: str, arguments: object) -> dict:
                 "error_type": "invalid_arguments",
                 "message": message,
             }
+
+    if name == "run_python_script":
+        message = validate_script_arguments(arguments)
+        if message is not None:
+            return {"status": "failed", "error_type": "invalid_arguments", "message": message}
 
     try:
         return tool(**arguments)

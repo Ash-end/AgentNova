@@ -5,6 +5,9 @@ __pycache__/
 !.env.example
 .pytest_cache/
 
+# Per-run generated metrics and other local execution artifacts
+/runs/
+
 # Lecture compilation logs, intermediate PDFs, and page previews
 lectures/**/build/
 lectures/**/learner_evidence_inbox/

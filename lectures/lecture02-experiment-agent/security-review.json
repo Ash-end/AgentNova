@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-25",
+  "scope": "Git-tracked and non-ignored publication files, PDF content/metadata/links and ZIP contents",
+  "inspected": {
+    "public_files": 451,
+    "text_items": 773,
+    "pdfs": 4,
+    "zip_entries": 292
+  },
+  "findings": [],
+  "passed": true,
+  "notes": "Pattern screening supplements Gitleaks; software run IDs and generic hardware/model metadata remain public. Not a whole-computer security assessment."
+}

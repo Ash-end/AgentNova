@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "script_id": {
+      "type": "string",
+      "enum": ["normal", "error", "timeout"],
+      "description": "只运行固定允许的教学脚本：normal 正常计算，error 演示异常，timeout 演示超时。路径、解释器和时限由程序固定。"
+    }
+  },
+  "required": ["script_id"],
+  "additionalProperties": false
+}

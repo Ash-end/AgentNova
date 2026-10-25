@@ -1,0 +1,328 @@
+[
+  {
+    "case": "normal",
+    "run_id": "b9a0906665ea450bb2a8407008415a85",
+    "run_directory": "runs/b9a0906665ea450bb2a8407008415a85",
+    "metrics_path": "runs/b9a0906665ea450bb2a8407008415a85/metrics.json",
+    "status": "passed",
+    "result": {
+      "status": "passed",
+      "reason": "verified_metrics",
+      "mse": 0.04
+    },
+    "trace": [
+      {
+        "step": "prepare_run",
+        "result": {
+          "status": "success",
+          "run_id": "b9a0906665ea450bb2a8407008415a85",
+          "run_directory": "runs/b9a0906665ea450bb2a8407008415a85",
+          "metrics_path": "runs/b9a0906665ea450bb2a8407008415a85/metrics.json"
+        }
+      },
+      {
+        "step": "run_python_script",
+        "result": {
+          "status": "success",
+          "run_id": "b9a0906665ea450bb2a8407008415a85",
+          "case": "normal",
+          "exit_code": 0,
+          "stdout": "教学指标已写入本次目录，run_id=b9a0906665ea450bb2a8407008415a85\n",
+          "stderr": "",
+          "timed_out": false,
+          "duration_seconds": 0.05109129997435957
+        }
+      },
+      {
+        "step": "read_text_file",
+        "result": {
+          "status": "success",
+          "content": "{\"run_id\": \"b9a0906665ea450bb2a8407008415a85\", \"mse\": 0.04}\n"
+        }
+      },
+      {
+        "step": "parse_json",
+        "result": {
+          "status": "success",
+          "data": {
+            "run_id": "b9a0906665ea450bb2a8407008415a85",
+            "mse": 0.04
+          }
+        }
+      },
+      {
+        "step": "check_run_id",
+        "result": {
+          "status": "passed",
+          "reason": "run_id_matched",
+          "expected_run_id": "b9a0906665ea450bb2a8407008415a85",
+          "actual_run_id": "b9a0906665ea450bb2a8407008415a85"
+        }
+      },
+      {
+        "step": "verify_metrics",
+        "result": {
+          "status": "passed",
+          "reason": "verified_metrics",
+          "mse": 0.04
+        }
+      }
+    ],
+    "execution": {
+      "status": "success",
+      "run_id": "b9a0906665ea450bb2a8407008415a85",
+      "case": "normal",
+      "exit_code": 0,
+      "stdout": "教学指标已写入本次目录，run_id=b9a0906665ea450bb2a8407008415a85\n",
+      "stderr": "",
+      "timed_out": false,
+      "duration_seconds": 0.05109129997435957
+    },
+    "expected_behavior_matched": true
+  },
+  {
+    "case": "missing_metrics",
+    "run_id": "8dc8468ac4eb4ecd9b1a96b4fa21ad5e",
+    "run_directory": "runs/8dc8468ac4eb4ecd9b1a96b4fa21ad5e",
+    "metrics_path": "runs/8dc8468ac4eb4ecd9b1a96b4fa21ad5e/metrics.json",
+    "status": "failed",
+    "result": {
+      "status": "failed",
+      "error_type": "file_not_found",
+      "path": "<demo_project>\\runs\\8dc8468ac4eb4ecd9b1a96b4fa21ad5e\\metrics.json"
+    },
+    "trace": [
+      {
+        "step": "prepare_run",
+        "result": {
+          "status": "success",
+          "run_id": "8dc8468ac4eb4ecd9b1a96b4fa21ad5e",
+          "run_directory": "runs/8dc8468ac4eb4ecd9b1a96b4fa21ad5e",
+          "metrics_path": "runs/8dc8468ac4eb4ecd9b1a96b4fa21ad5e/metrics.json"
+        }
+      },
+      {
+        "step": "run_python_script",
+        "result": {
+          "status": "success",
+          "run_id": "8dc8468ac4eb4ecd9b1a96b4fa21ad5e",
+          "case": "missing_metrics",
+          "exit_code": 0,
+          "stdout": "本次正常退出，但故意不生成 metrics.json；旧目录不应被读取。\n",
+          "stderr": "",
+          "timed_out": false,
+          "duration_seconds": 0.04696950002107769
+        }
+      },
+      {
+        "step": "read_text_file",
+        "result": {
+          "status": "failed",
+          "error_type": "file_not_found",
+          "path": "<demo_project>\\runs\\8dc8468ac4eb4ecd9b1a96b4fa21ad5e\\metrics.json"
+        }
+      }
+    ],
+    "execution": {
+      "status": "success",
+      "run_id": "8dc8468ac4eb4ecd9b1a96b4fa21ad5e",
+      "case": "missing_metrics",
+      "exit_code": 0,
+      "stdout": "本次正常退出，但故意不生成 metrics.json；旧目录不应被读取。\n",
+      "stderr": "",
+      "timed_out": false,
+      "duration_seconds": 0.04696950002107769
+    },
+    "expected_behavior_matched": true,
+    "previous_metrics_path": "runs/b9a0906665ea450bb2a8407008415a85/metrics.json",
+    "previous_metrics_exists": true,
+    "current_metrics_exists": false
+  },
+  {
+    "case": "wrong_run_id",
+    "run_id": "513c08c7568b4977af592ae18579d96b",
+    "run_directory": "runs/513c08c7568b4977af592ae18579d96b",
+    "metrics_path": "runs/513c08c7568b4977af592ae18579d96b/metrics.json",
+    "status": "failed",
+    "result": {
+      "status": "failed",
+      "reason": "run_id_mismatch",
+      "expected_run_id": "513c08c7568b4977af592ae18579d96b",
+      "actual_run_id": "previous_run"
+    },
+    "trace": [
+      {
+        "step": "prepare_run",
+        "result": {
+          "status": "success",
+          "run_id": "513c08c7568b4977af592ae18579d96b",
+          "run_directory": "runs/513c08c7568b4977af592ae18579d96b",
+          "metrics_path": "runs/513c08c7568b4977af592ae18579d96b/metrics.json"
+        }
+      },
+      {
+        "step": "run_python_script",
+        "result": {
+          "status": "success",
+          "run_id": "513c08c7568b4977af592ae18579d96b",
+          "case": "wrong_run_id",
+          "exit_code": 0,
+          "stdout": "教学指标已写入本次目录，run_id=previous_run\n",
+          "stderr": "",
+          "timed_out": false,
+          "duration_seconds": 0.05108290002681315
+        }
+      },
+      {
+        "step": "read_text_file",
+        "result": {
+          "status": "success",
+          "content": "{\"run_id\": \"previous_run\", \"mse\": 0.04}\n"
+        }
+      },
+      {
+        "step": "parse_json",
+        "result": {
+          "status": "success",
+          "data": {
+            "run_id": "previous_run",
+            "mse": 0.04
+          }
+        }
+      },
+      {
+        "step": "check_run_id",
+        "result": {
+          "status": "failed",
+          "reason": "run_id_mismatch",
+          "expected_run_id": "513c08c7568b4977af592ae18579d96b",
+          "actual_run_id": "previous_run"
+        }
+      }
+    ],
+    "execution": {
+      "status": "success",
+      "run_id": "513c08c7568b4977af592ae18579d96b",
+      "case": "wrong_run_id",
+      "exit_code": 0,
+      "stdout": "教学指标已写入本次目录，run_id=previous_run\n",
+      "stderr": "",
+      "timed_out": false,
+      "duration_seconds": 0.05108290002681315
+    },
+    "expected_behavior_matched": true
+  },
+  {
+    "case": "error",
+    "run_id": "429c98333f954167be60170937b1a00d",
+    "run_directory": "runs/429c98333f954167be60170937b1a00d",
+    "metrics_path": "runs/429c98333f954167be60170937b1a00d/metrics.json",
+    "status": "failed",
+    "result": {
+      "status": "failed",
+      "run_id": "429c98333f954167be60170937b1a00d",
+      "case": "error",
+      "exit_code": 1,
+      "stdout": "教学指标已写入本次目录，run_id=429c98333f954167be60170937b1a00d\n",
+      "stderr": "Traceback (most recent call last):\n  File \"<demo_project>\\labs\\fixtures\\experiment_scripts\\write_metrics.py\", line 33, in <module>\n    main()\n  File \"<demo_project>\\labs\\fixtures\\experiment_scripts\\write_metrics.py\", line 27, in main\n    raise RuntimeError(\"演示：虽有指标文件，但进程执行失败，不能验收通过。\")\nRuntimeError: 演示：虽有指标文件，但进程执行失败，不能验收通过。\n",
+      "timed_out": false,
+      "duration_seconds": 0.04805899999337271,
+      "error_type": "process_failed"
+    },
+    "trace": [
+      {
+        "step": "prepare_run",
+        "result": {
+          "status": "success",
+          "run_id": "429c98333f954167be60170937b1a00d",
+          "run_directory": "runs/429c98333f954167be60170937b1a00d",
+          "metrics_path": "runs/429c98333f954167be60170937b1a00d/metrics.json"
+        }
+      },
+      {
+        "step": "run_python_script",
+        "result": {
+          "status": "failed",
+          "run_id": "429c98333f954167be60170937b1a00d",
+          "case": "error",
+          "exit_code": 1,
+          "stdout": "教学指标已写入本次目录，run_id=429c98333f954167be60170937b1a00d\n",
+          "stderr": "Traceback (most recent call last):\n  File \"<demo_project>\\labs\\fixtures\\experiment_scripts\\write_metrics.py\", line 33, in <module>\n    main()\n  File \"<demo_project>\\labs\\fixtures\\experiment_scripts\\write_metrics.py\", line 27, in main\n    raise RuntimeError(\"演示：虽有指标文件，但进程执行失败，不能验收通过。\")\nRuntimeError: 演示：虽有指标文件，但进程执行失败，不能验收通过。\n",
+          "timed_out": false,
+          "duration_seconds": 0.04805899999337271,
+          "error_type": "process_failed"
+        }
+      }
+    ],
+    "execution": {
+      "status": "failed",
+      "run_id": "429c98333f954167be60170937b1a00d",
+      "case": "error",
+      "exit_code": 1,
+      "stdout": "教学指标已写入本次目录，run_id=429c98333f954167be60170937b1a00d\n",
+      "stderr": "Traceback (most recent call last):\n  File \"<demo_project>\\labs\\fixtures\\experiment_scripts\\write_metrics.py\", line 33, in <module>\n    main()\n  File \"<demo_project>\\labs\\fixtures\\experiment_scripts\\write_metrics.py\", line 27, in main\n    raise RuntimeError(\"演示：虽有指标文件，但进程执行失败，不能验收通过。\")\nRuntimeError: 演示：虽有指标文件，但进程执行失败，不能验收通过。\n",
+      "timed_out": false,
+      "duration_seconds": 0.04805899999337271,
+      "error_type": "process_failed"
+    },
+    "expected_behavior_matched": true
+  },
+  {
+    "case": "timeout",
+    "run_id": "3495940845f84492afe2a513193c1de7",
+    "run_directory": "runs/3495940845f84492afe2a513193c1de7",
+    "metrics_path": "runs/3495940845f84492afe2a513193c1de7/metrics.json",
+    "status": "failed",
+    "result": {
+      "status": "failed",
+      "run_id": "3495940845f84492afe2a513193c1de7",
+      "case": "timeout",
+      "exit_code": null,
+      "stdout": "教学指标已写入本次目录，run_id=3495940845f84492afe2a513193c1de7\n",
+      "stderr": "",
+      "timed_out": true,
+      "duration_seconds": 2.0144565000082366,
+      "error_type": "tool_timeout",
+      "exception_type": "TimeoutExpired"
+    },
+    "trace": [
+      {
+        "step": "prepare_run",
+        "result": {
+          "status": "success",
+          "run_id": "3495940845f84492afe2a513193c1de7",
+          "run_directory": "runs/3495940845f84492afe2a513193c1de7",
+          "metrics_path": "runs/3495940845f84492afe2a513193c1de7/metrics.json"
+        }
+      },
+      {
+        "step": "run_python_script",
+        "result": {
+          "status": "failed",
+          "run_id": "3495940845f84492afe2a513193c1de7",
+          "case": "timeout",
+          "exit_code": null,
+          "stdout": "教学指标已写入本次目录，run_id=3495940845f84492afe2a513193c1de7\n",
+          "stderr": "",
+          "timed_out": true,
+          "duration_seconds": 2.0144565000082366,
+          "error_type": "tool_timeout",
+          "exception_type": "TimeoutExpired"
+        }
+      }
+    ],
+    "execution": {
+      "status": "failed",
+      "run_id": "3495940845f84492afe2a513193c1de7",
+      "case": "timeout",
+      "exit_code": null,
+      "stdout": "教学指标已写入本次目录，run_id=3495940845f84492afe2a513193c1de7\n",
+      "stderr": "",
+      "timed_out": true,
+      "duration_seconds": 2.0144565000082366,
+      "error_type": "tool_timeout",
+      "exception_type": "TimeoutExpired"
+    },
+    "expected_behavior_matched": true
+  }
+]

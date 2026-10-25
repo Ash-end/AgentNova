@@ -1,6 +1,6 @@
 * text=auto eol=lf
 
 # Preserve lecture exports and archived source bytes for SHA-256 verification.
-lectures/** -text
+lectures/** -text whitespace=cr-at-eol,-blank-at-eof,-blank-at-eol
 *.pdf binary
 *.zip binary

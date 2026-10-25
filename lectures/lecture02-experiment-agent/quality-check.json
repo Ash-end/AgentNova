@@ -1,0 +1,61 @@
+{
+  "renderer": "Tectonic 0.17.0",
+  "text_extractor": "pdfplumber",
+  "compiled_source": "lecture.tex",
+  "desktop_compiler_validation": "success",
+  "edition": "public-redacted",
+  "pages": 91,
+  "empty_pages": [],
+  "outside_page_safe_area": [],
+  "replacement_characters": 0,
+  "coverage_checks": {
+    "0.87744596": true,
+    "0.01207715": true,
+    "run_id_mismatch": true,
+    "自测题": true,
+    "第27": true
+  },
+  "snapshot_files": 168,
+  "snapshot_hashes_match": true,
+  "standalone_tex_has_no_content_dependency": true,
+  "pdf_author": "AgentNova",
+  "pdf_embedded_attachments": 0,
+  "contact_sheets": [
+    "contact-01.png",
+    "contact-02.png",
+    "contact-03.png",
+    "contact-04.png",
+    "contact-05.png",
+    "contact-06.png",
+    "contact-07.png",
+    "contact-08.png"
+  ],
+  "selected_render_pages": [
+    1,
+    2,
+    9,
+    11,
+    20,
+    21,
+    76
+  ],
+  "visual_review": "passed: all contact sheets reviewed; final metadata-index and training-results pages rechecked after attribute snapshot rename",
+  "lecture.md_sha256": "b28c6a0839cdc7ea0e4eb5b47a2f74ec98bee334784e18c7aefc06633068d63d",
+  "lecture.tex_sha256": "7c32216e679003db731e7128d6bd6cce5459153421799b8aa18e71a989326893",
+  "main.tex_sha256": "8efb6c2a57f95ce1f5a5479a50bb81a16b52ef634022be33e5d54b944fc52711",
+  "content.tex_sha256": "5f3704bb41126c7c227cb8d19cf6664da27faa6eb4dca33646ef48d0b4a0761d",
+  "lecture02-experiment-agent.pdf_sha256": "9401077f46f7f9ca56d0957db36f50ea6b9d9df44657e51483bc72b06808e5d5",
+  "regression_tests": {
+    "tests": {
+      "count": 122,
+      "passed": true,
+      "summary": "..........................................................................................................................\n----------------------------------------------------------------------\nRan 122 tests in 6.331s\n\nOK"
+    },
+    "exercises": {
+      "count": 28,
+      "passed": true,
+      "summary": "............................\n----------------------------------------------------------------------\nRan 28 tests in 0.024s\n\nOK"
+    }
+  },
+  "compile_log_missing_characters": 0
+}

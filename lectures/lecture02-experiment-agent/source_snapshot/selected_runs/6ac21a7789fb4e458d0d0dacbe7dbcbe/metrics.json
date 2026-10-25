@@ -1,0 +1,38 @@
+{
+  "run_id": "6ac21a7789fb4e458d0d0dacbe7dbcbe",
+  "case": "linear_regression",
+  "task": "synthetic_linear_regression",
+  "mse": 0.012077154024622018,
+  "validation_mse": 0.012077154024622018,
+  "train_mse": 0.011321768442497847,
+  "initial_train_mse": 6.770848868505339,
+  "initial_validation_mse": 5.576552142612415,
+  "baseline_validation_mse": 3.1907557184024435,
+  "training_seconds": 0.0014620000147260725,
+  "model": {
+    "weight": 2.9963348533669354,
+    "bias": 2.0006788904358483
+  },
+  "config": {
+    "learning_rate": 0.1,
+    "steps": 100,
+    "train_samples": 128,
+    "validation_samples": 64,
+    "train_seed": 20261025,
+    "validation_seed": 20261026,
+    "target_weight": 3.0,
+    "target_bias": 2.0,
+    "noise_std": 0.1,
+    "initial_weight": 0.0,
+    "initial_bias": 0.0
+  },
+  "data_split_id": "57cbc2b69b7e23d63c970920325908a8596c56ea6a35b785ae87e6934d9c9f80",
+  "script_sha256": "51e1d97459f1bf7075266b4dafb2094319d403f0b37d9e0cdf995767fae05fed",
+  "python_version": "3.11.17",
+  "artifacts": {
+    "config": "config.json",
+    "data": "data.json",
+    "model": "model.json",
+    "validation_predictions": "validation_predictions.json"
+  }
+}

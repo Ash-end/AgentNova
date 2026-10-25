@@ -1,0 +1,41 @@
+[
+  {
+    "case": "normal",
+    "result": {
+      "status": "success",
+      "script_id": "normal",
+      "exit_code": 0,
+      "stdout": "正常脚本：2 + 3 = 5\n",
+      "stderr": "诊断信息：本次计算已完成。\n",
+      "timed_out": false,
+      "duration_seconds": 0.02075200000035693
+    }
+  },
+  {
+    "case": "error",
+    "result": {
+      "status": "failed",
+      "script_id": "error",
+      "exit_code": 1,
+      "stdout": "异常脚本：准备触发 RuntimeError。\n",
+      "stderr": "Traceback (most recent call last):\n  File \"E:\\study\\agent\\labs\\fixtures\\process_scripts\\error.py\", line 5, in <module>\n    raise RuntimeError(\"演示用异常：计算未完成。\")\nRuntimeError: 演示用异常：计算未完成。\n",
+      "timed_out": false,
+      "duration_seconds": 0.019606199999543605,
+      "error_type": "process_failed"
+    }
+  },
+  {
+    "case": "timeout",
+    "result": {
+      "status": "failed",
+      "script_id": "timeout",
+      "exit_code": null,
+      "stdout": "超时脚本：开始等待。\n",
+      "stderr": "",
+      "timed_out": true,
+      "duration_seconds": 2.0117250999974203,
+      "error_type": "tool_timeout",
+      "exception_type": "TimeoutExpired"
+    }
+  }
+]

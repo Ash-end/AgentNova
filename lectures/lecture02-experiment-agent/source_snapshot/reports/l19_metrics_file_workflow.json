@@ -1,0 +1,166 @@
+[
+  {
+    "case": "valid_metrics",
+    "relative_path": "data/valid_metrics.json",
+    "status": "passed",
+    "result": {
+      "status": "passed",
+      "reason": "verified_metrics",
+      "mse": 0.04
+    },
+    "trace": [
+      {
+        "step": "read_text_file",
+        "result": {
+          "status": "success",
+          "content": "{\"mse\": 0.04}"
+        }
+      },
+      {
+        "step": "parse_json",
+        "result": {
+          "status": "success",
+          "data": {
+            "mse": 0.04
+          }
+        }
+      },
+      {
+        "step": "verify_metrics",
+        "result": {
+          "status": "passed",
+          "reason": "verified_metrics",
+          "mse": 0.04
+        }
+      }
+    ],
+    "expected_behavior_matched": true
+  },
+  {
+    "case": "missing_file",
+    "relative_path": "data/missing_file.json",
+    "status": "failed",
+    "result": {
+      "status": "failed",
+      "error_type": "file_not_found",
+      "path": "<demo_project>\\data\\missing_file.json"
+    },
+    "trace": [
+      {
+        "step": "read_text_file",
+        "result": {
+          "status": "failed",
+          "error_type": "file_not_found",
+          "path": "<demo_project>\\data\\missing_file.json"
+        }
+      }
+    ],
+    "expected_behavior_matched": true
+  },
+  {
+    "case": "invalid_json",
+    "relative_path": "data/invalid_json.json",
+    "status": "failed",
+    "result": {
+      "status": "failed",
+      "error_type": "invalid_json",
+      "message": "Illegal trailing comma before end of object",
+      "line": 1,
+      "column": 13
+    },
+    "trace": [
+      {
+        "step": "read_text_file",
+        "result": {
+          "status": "success",
+          "content": "{\"mse\": 0.04,}"
+        }
+      },
+      {
+        "step": "parse_json",
+        "result": {
+          "status": "failed",
+          "error_type": "invalid_json",
+          "message": "Illegal trailing comma before end of object",
+          "line": 1,
+          "column": 13
+        }
+      }
+    ],
+    "expected_behavior_matched": true
+  },
+  {
+    "case": "invalid_metric_type",
+    "relative_path": "data/invalid_metric_type.json",
+    "status": "failed",
+    "result": {
+      "status": "failed",
+      "reason": "invalid_metrics"
+    },
+    "trace": [
+      {
+        "step": "read_text_file",
+        "result": {
+          "status": "success",
+          "content": "{\"mse\": \"0.04\"}"
+        }
+      },
+      {
+        "step": "parse_json",
+        "result": {
+          "status": "success",
+          "data": {
+            "mse": "0.04"
+          }
+        }
+      },
+      {
+        "step": "verify_metrics",
+        "result": {
+          "status": "failed",
+          "reason": "invalid_metrics"
+        }
+      }
+    ],
+    "expected_behavior_matched": true
+  },
+  {
+    "case": "above_threshold",
+    "relative_path": "data/above_threshold.json",
+    "status": "failed",
+    "result": {
+      "status": "failed",
+      "reason": "mse_above_threshold",
+      "mse": 1.2,
+      "max_mse": 0.1
+    },
+    "trace": [
+      {
+        "step": "read_text_file",
+        "result": {
+          "status": "success",
+          "content": "{\"mse\": 1.2}"
+        }
+      },
+      {
+        "step": "parse_json",
+        "result": {
+          "status": "success",
+          "data": {
+            "mse": 1.2
+          }
+        }
+      },
+      {
+        "step": "verify_metrics",
+        "result": {
+          "status": "failed",
+          "reason": "mse_above_threshold",
+          "mse": 1.2,
+          "max_mse": 0.1
+        }
+      }
+    ],
+    "expected_behavior_matched": true
+  }
+]

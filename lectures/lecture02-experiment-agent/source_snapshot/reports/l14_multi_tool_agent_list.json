@@ -1,0 +1,264 @@
+{
+  "task": "请查看 labs/fixtures 目录下有哪些直接子项，只列出名称和类型。",
+  "requests": [
+    {
+      "model": "qwen3.5:9b-q4_K_M",
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "请查看 labs/fixtures 目录下有哪些直接子项，只列出名称和类型。"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "read_text_file",
+            "description": "读取项目内指定 UTF-8 文件的文本内容。",
+            "parameters": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "relative_path": {
+                  "type": "string",
+                  "description": "相对于项目根目录的 UTF-8 文本文件路径，例如 labs/fixtures/hello.txt。路径须位于项目内，且不能是空字符串或全空白。",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "relative_path"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "list_directory",
+            "description": "查看项目目录下一层的文件和子目录名称、类型及路径。最多返回50项；truncated表示未完整列出。",
+            "parameters": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "relative_path": {
+                  "type": "string",
+                  "description": "相对于项目根目录的目录路径。使用 . 查看根目录，例如 labs/fixtures 查看该子目录。路径须位于项目内，且不能是空字符串或全空白。",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "relative_path"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      ],
+      "stream": false,
+      "think": false,
+      "keep_alive": "10m",
+      "options": {
+        "temperature": 0,
+        "num_predict": 512
+      }
+    },
+    {
+      "model": "qwen3.5:9b-q4_K_M",
+      "messages": [
+        {
+          "role": "system",
+          "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+        },
+        {
+          "role": "user",
+          "content": "请查看 labs/fixtures 目录下有哪些直接子项，只列出名称和类型。"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_itsym2tw",
+              "function": {
+                "index": 0,
+                "name": "list_directory",
+                "arguments": {
+                  "relative_path": "labs/fixtures"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_name": "list_directory",
+          "content": "{\"status\": \"success\", \"entries\": [{\"name\": \"hello.txt\", \"type\": \"file\", \"relative_path\": \"labs/fixtures/hello.txt\"}], \"truncated\": false}"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "read_text_file",
+            "description": "读取项目内指定 UTF-8 文件的文本内容。",
+            "parameters": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "relative_path": {
+                  "type": "string",
+                  "description": "相对于项目根目录的 UTF-8 文本文件路径，例如 labs/fixtures/hello.txt。路径须位于项目内，且不能是空字符串或全空白。",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "relative_path"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "list_directory",
+            "description": "查看项目目录下一层的文件和子目录名称、类型及路径。最多返回50项；truncated表示未完整列出。",
+            "parameters": {
+              "$schema": "https://json-schema.org/draft/2020-12/schema",
+              "type": "object",
+              "properties": {
+                "relative_path": {
+                  "type": "string",
+                  "description": "相对于项目根目录的目录路径。使用 . 查看根目录，例如 labs/fixtures 查看该子目录。路径须位于项目内，且不能是空字符串或全空白。",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                }
+              },
+              "required": [
+                "relative_path"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      ],
+      "stream": false,
+      "think": false,
+      "keep_alive": "10m",
+      "options": {
+        "temperature": 0,
+        "num_predict": 512
+      }
+    }
+  ],
+  "result": {
+    "status": "completed",
+    "steps": 2,
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是代码实验助手。读取项目文件必须通过提供的工具获得实际内容。"
+      },
+      {
+        "role": "user",
+        "content": "请查看 labs/fixtures 目录下有哪些直接子项，只列出名称和类型。"
+      },
+      {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "id": "call_itsym2tw",
+            "function": {
+              "index": 0,
+              "name": "list_directory",
+              "arguments": {
+                "relative_path": "labs/fixtures"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_name": "list_directory",
+        "content": "{\"status\": \"success\", \"entries\": [{\"name\": \"hello.txt\", \"type\": \"file\", \"relative_path\": \"labs/fixtures/hello.txt\"}], \"truncated\": false}"
+      },
+      {
+        "role": "assistant",
+        "content": "在 `labs/fixtures` 目录下，直接子项如下：\n\n- **hello.txt**（文件）"
+      }
+    ],
+    "responses": [
+      {
+        "model": "qwen3.5:9b-q4_K_M",
+        "created_at": "2026-10-21T13:55:23.8750091Z",
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_itsym2tw",
+              "function": {
+                "index": 0,
+                "name": "list_directory",
+                "arguments": {
+                  "relative_path": "labs/fixtures"
+                }
+              }
+            }
+          ]
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 51110997700,
+        "load_duration": 31748409900,
+        "prompt_eval_count": 475,
+        "prompt_eval_cached_count": 0,
+        "prompt_eval_duration": 18228820000,
+        "eval_count": 28,
+        "eval_duration": 1129650000
+      },
+      {
+        "model": "qwen3.5:9b-q4_K_M",
+        "created_at": "2026-10-21T13:55:24.1465229Z",
+        "message": {
+          "role": "assistant",
+          "content": "在 `labs/fixtures` 目录下，直接子项如下：\n\n- **hello.txt**（文件）"
+        },
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 250025600,
+        "load_duration": 3003600,
+        "prompt_eval_count": 556,
+        "prompt_eval_cached_count": 471,
+        "prompt_eval_duration": 55813000,
+        "eval_count": 23,
+        "eval_duration": 187653000
+      }
+    ],
+    "tool_decisions": [
+      {
+        "step": 1,
+        "tool_name": "list_directory",
+        "action": "continue",
+        "reason": "tool_succeeded",
+        "corrections_used": 0
+      }
+    ],
+    "answer": "在 `labs/fixtures` 目录下，直接子项如下：\n\n- **hello.txt**（文件）"
+  },
+  "observed_tools": [
+    "list_directory"
+  ],
+  "expected_sequence_matched": true,
+  "elapsed_seconds": 51.419148699962534
+}
